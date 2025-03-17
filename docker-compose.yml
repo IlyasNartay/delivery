@@ -29,6 +29,21 @@ services:
       - ./auth_service/.env
     depends_on:
       - db
+  restaurants_service:
+    build:
+      context: ./restaurants_service
+    container_name: delivery-restaurant_service
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8001"
+    volumes:
+      - ./restaurant_service:/app
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./restaurants_service/.env
+    depends_on:
+      - db
 
   gateway:
     build:

@@ -53,17 +53,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'restaurants_service.wsgi.application'
 
-# База данных
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('delivery'),
-        'USER': os.getenv('postgres'),
-        'PASSWORD': os.getenv('postgres'),
-        'HOST': os.getenv('db'),
-        'PORT': os.getenv('5432'),
+        'NAME': os.environ.get('POSTGRES_DB', 'delivery'),
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'postgres'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'db'),  # <--- ВАЖНО
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
+
 
 # Пароли
 AUTH_PASSWORD_VALIDATORS = [
